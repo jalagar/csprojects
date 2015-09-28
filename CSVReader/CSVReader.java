@@ -19,7 +19,7 @@ import java.util.Calendar;
  * @Author: James Uejio
  * Summer 2015
  */
-public class data {
+public class CSVReader {
     String dates;
     static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
     ArrayList<String> columns;
@@ -30,7 +30,7 @@ public class data {
     HashMap<String, Integer> observationCount = new HashMap<String, Integer>();
     static HashMap<String, String> vehicleIdToCategory;
     static HashMap<String, String> vehicleIdToDescription;
-    public data(String file1, String dates) {
+    public CSVReader(String file1, String dates) {
         System.out.println("Loading " + file1 + "...");
         this.dates = dates;
         columns = new ArrayList<String>();
@@ -1496,7 +1496,7 @@ public class data {
 //            System.out.println("Column does not exist. Make sure it is spelled exactly the same as the spreadsheet.");
 //        }
 //    }
-    public static void sort(data incidents, ArrayList<String> tokens) {
+    public static void sort(CSVReader incidents, ArrayList<String> tokens) {
         int tokensSize = tokens.size();
         if (tokensSize == 2) {
             //col
@@ -1581,7 +1581,7 @@ public class data {
         }     
     }
     //Specify start and end dates
-    public static void dates(data incidents, ArrayList<String> tokens) {
+    public static void dates(CSVReader incidents, ArrayList<String> tokens) {
         if (tokens.size() == 3) {
             incidents.sumOfTwoDates(tokens.get(1), tokens.get(2));
         }
@@ -1608,7 +1608,7 @@ public class data {
             incidents.colValColVal(tokens.get(1), tokens.get(2), tokens.get(3), tokens.get(4), tokens.get(5), tokens.get(6), false);
         }
     }
-    public static void months(data incidents, ArrayList<String> tokens) {
+    public static void months(CSVReader incidents, ArrayList<String> tokens) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(incidents.minDate);
         int minYear = cal.get(Calendar.YEAR);
@@ -1687,19 +1687,19 @@ public class data {
     }
     public static void main(String[] args) {
         //TODO file names
-//        data vehicles = new data("/vehicleTypes.csv", ""); 
+//        CSVReader vehicles = new CSVReader("/vehicleTypes.csv", ""); 
 //        HashMap<String, String> vehicleIdToCategory = new HashMap<String, String>();
 //        HashMap<String, String> vehicleIdToDescription = new HashMap<String, String>();
 //        for (row r: vehicles.rows) {
 //            vehicleIdToCategory.put(r.columnVal.get("UNIT"), r.columnVal.get("category".toUpperCase()));
 //            vehicleIdToDescription.put(r.columnVal.get("UNIT"), r.columnVal.get("dbo_templates_description".toUpperCase()));
 //        }
-//        data.vehicleIdToCategory = vehicleIdToCategory;
-//        data.vehicleIdToDescription = vehicleIdToDescription;
-//        data incidents = new data("/observations.csv");
-//        data currentFile = new data("/birdsAndExtraBirds.csv", "Survey Date (MM/DD/YY)".toUpperCase());
-//        data currentFile = new data("/incidentswithDriverNameandId.csv", "Incident Date".toUpperCase());
-        data currentFile = null;
+//        CSVReader.vehicleIdToCategory = vehicleIdToCategory;
+//        CSVReader.vehicleIdToDescription = vehicleIdToDescription;
+//        CSVReader incidents = new CSVReader("/observations.csv");
+//        CSVReader currentFile = new CSVReader("/birdsAndExtraBirds.csv", "Survey Date (MM/DD/YY)".toUpperCase());
+//        CSVReader currentFile = new CSVReader("/incidentswithDriverNameandId.csv", "Incident Date".toUpperCase());
+        CSVReader currentFile = null;
         while(true) {
             System.out.print("> ");
             String line = StdIn.readLine();
@@ -1719,28 +1719,28 @@ public class data {
                     case "load":
 //                        if (tokens.size() == 2) {
 //                            if (tokens.get(1).equals("callins")) {
-//                                currentFile = new data("/callins10-15.csv", "Incident Date".toUpperCase());
+//                                currentFile = new CSVReader("/callins10-15.csv", "Incident Date".toUpperCase());
 ////                                currentFile.multipleOffendersCount("driver name1", "driver name2", "0");
 ////                                currentFile.vehicleTypeCategoryCount("Vehicle Type", "sport utility vehicle");
 //                            } else if (tokens.get(1).equals("incidents")) {
-//                                currentFile = new data("/incidents10-15.csv", "Incident Date".toUpperCase());
+//                                currentFile = new CSVReader("/incidents10-15.csv", "Incident Date".toUpperCase());
 //                            } else if (tokens.get(1).equals("birds")) {
-//                                currentFile = new data("/regularcsvbirds.csv", "Survey Date (MM/DD/YY)".toUpperCase());
+//                                currentFile = new CSVReader("/regularcsvbirds.csv", "Survey Date (MM/DD/YY)".toUpperCase());
 //                            } else if (tokens.get(1).equals("extrabirds")) { 
-//                                currentFile = new data("/ExtraBirdSheets.csv", "Survey Date (MM/DD/YY)".toUpperCase());
+//                                currentFile = new CSVReader("/ExtraBirdSheets.csv", "Survey Date (MM/DD/YY)".toUpperCase());
 //                            } else if (tokens.get(1).equals("pool")) {
-//                                currentFile = new data("/poolMileage.csv", "");
-//                                new data("Company Vehicle2011.csv","").pool("YYYYMO");
-//                                new data("Company Vehicle2012.csv","").pool("YYYYMO");
-//                                new data("Company Vehicle2013.csv","").pool("YYYYMO");
-//                                new data("Company Vehicle2014.csv","").pool("YYYYMO");
-//                                new data("Company Vehicle2015.csv","").pool("YYYYMO");
+//                                currentFile = new CSVReader("/poolMileage.csv", "");
+//                                new CSVReader("Company Vehicle2011.csv","").pool("YYYYMO");
+//                                new CSVReader("Company Vehicle2012.csv","").pool("YYYYMO");
+//                                new CSVReader("Company Vehicle2013.csv","").pool("YYYYMO");
+//                                new CSVReader("Company Vehicle2014.csv","").pool("YYYYMO");
+//                                new CSVReader("Company Vehicle2015.csv","").pool("YYYYMO");
 //                            } else {
 //                               System.out.println("No saved file found with that name");
 //                            }
 //                        }
                         if (tokens.size() == 3) {
-                            currentFile = new data(tokens.get(1), tokens.get(2));
+                            currentFile = new CSVReader(tokens.get(1), tokens.get(2));
                         }
                         break;
                     case "dates": {
